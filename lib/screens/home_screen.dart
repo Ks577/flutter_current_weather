@@ -6,7 +6,7 @@ import '../const/text_style.dart';
 import '../data/location_service.dart';
 import '../data/service_weather.dart';
 import '../widgets/search.dart';
-import '../widgets/weather_container.dart';
+import '../data/weather_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,18 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int _humidity = 0;
   DateTime _sunset = DateTime.now();
   DateTime _sunrise = DateTime.now();
-  late bool _isLoading;
 
   @override
   void initState() {
-    _isLoading = true;
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
+    setState(() {
+      _getCurrentPositionAndWeather();
     });
     super.initState();
-    _getCurrentPositionAndWeather();
   }
 
   @override
@@ -58,11 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: AssetImage("assets/images/weather.jpeg"),
                     fit: BoxFit.cover),
               ),
-              child: _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : _content),
+              child: _content),
         ),
       ),
     );
@@ -89,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: const TextStyle(fontSize: 15, color: textColor),
               ),
               const SizedBox(height: 10),
-              WeatherCard(
+              WeatherData(
                 temp: _temp,
                 iconCode: _icon,
                 date: _date,
@@ -156,8 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
         _icon = weatherData['weather'][0]['icon'];
         _feelsLike = weatherData['main']['feels_like'];
         _description = weatherData['weather'][0]['description'].toString();
-        _date = DateTime.fromMillisecondsSinceEpoch(weatherData['dt'] * 1000,
-            isUtc: false);
+        _date =
+            DateTime.fromMillisecondsSinceEpoch(weatherData['dt'] * 1000);
         _minTemp = weatherData['main']['temp_min'];
         _maxTemp = weatherData['main']['temp_max'];
         _pressure = weatherData['main']["pressure"];

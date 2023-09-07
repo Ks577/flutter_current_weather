@@ -34,12 +34,7 @@ class _SearchFormState extends State<SearchForm> {
         color: Colors.black,
       ),
       onSuffixTap: () async {
-        _cityController.text == ""
-            ? log("No city entered")
-            : setState(() {
-                //_myData = getData(false, _cityController.text);
-              });
-
+        _cityController.text == "" ? log("No city entered") : setState(() {});
         FocusScope.of(context).unfocus();
         _cityController.clear();
       },

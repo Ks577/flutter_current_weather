@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../const/container_style.dart';
+import '../const/components_style.dart';
 
-class WeatherCard extends StatelessWidget {
+class WeatherData extends StatelessWidget {
   final DateTime? date;
   final String? title;
   final String? iconCode;
@@ -17,7 +17,7 @@ class WeatherCard extends StatelessWidget {
   final DateTime sunset;
   final DateTime sunrise;
 
-  const WeatherCard({
+  const WeatherData({
     Key? key,
     required this.title,
     required this.temp,

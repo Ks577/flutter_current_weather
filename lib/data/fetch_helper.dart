@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'const.dart';
+import '../const/data_const.dart';
 import 'package:http/http.dart' as http;
 
 class FetchHelper {
